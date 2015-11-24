@@ -1,0 +1,17 @@
+{
+    "name": "ncrousset/imap",
+    "description": "Obtener mailvia imap",
+    "type": "library",
+    "license": "mit",
+    "authors": [
+        {
+            "name": "Rudys Natanael Acosta",
+            "email": "natanael926@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "ext-imap": "*"
+    }
+}
