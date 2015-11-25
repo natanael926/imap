@@ -4,7 +4,7 @@
     "keywords": ["php", "imap", "mail"],
     "homepage": "https://github.com/natanael926/get-mail-imap.git",
     "type": "library",
-    "license": "mit",
+    "license": "MIT",
     "authors": [
         {
             "name": "Rudys Natanael Acosta",
@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Imap\\": "src/"
+            "NCrousset\\Imap\\": "src/"
         }
     }
 }
