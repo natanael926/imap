@@ -55,7 +55,7 @@ class Config
 	 * @return Config 
 	 * @return Config
 	 */
-	public static function getInstace()
+	public static function getInstance()
 	{
 		if(self::$instance == null) {
 			self::$instance = new self;

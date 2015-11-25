@@ -42,7 +42,7 @@ class Imap extends ImapConnect
 	public static function getInstance()
 	{
 		if(self::$instance == null) {
-			self::$instance = new self();
+			self::$instance = new self(Config::getInstance());
 		}
 
 		return self::$instance;
