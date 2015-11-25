@@ -1,4 +1,4 @@
-<?php namespace MailImap;
+<?php namespace NCrousset\Imap;
 
 
 class ImapConnect

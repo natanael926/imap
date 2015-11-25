@@ -40,10 +40,8 @@ class Config
 	 * @param string $pathConfigIni 
 	 * @return  void
 	 */
-	public function __construct($pathConfigIni = __DIR__ . '../../config.ini')
+	public function __construct()
 	{
-
-		$config = parse_ini_file($pathConfigIni);
 
 		$this->host = $config['host'];
 		$this->username = $config['username'];
