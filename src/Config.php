@@ -43,11 +43,11 @@ class Config
 	public function __construct()
 	{
 
-		$this->host = $config['host'];
-		$this->username = $config['username'];
-		$this->password = $config['password'];
-		$this->postImap = $config['post_imap'];
-		$this->postSmtp = $config['post_smtp'];;
+		$this->host = env("HOST_IMAP");
+		$this->username = env("USER_EMAIL_IMAP");
+		$this->password = env("PASS_EMAIL_IMAP");
+		$this->postImap = env("POST_IMAP");
+		$this->postSmtp = env("POST_SMTP");
 	}
 
 	/**
@@ -63,6 +63,5 @@ class Config
 
 		return self::$instance;
 	}
-	
 	 
 }
