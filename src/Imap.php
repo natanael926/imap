@@ -1,7 +1,7 @@
 <?php namespace NCrousset\Imap;
 
-use NCrousset\Imap\Config;
-use NCrousset\Imap\ImapConnect;
+use NCrousset\Imap\Config as Config;
+use NCrousset\Imap\ImapConnect as ImapConnect;
 
 /**
  *
@@ -18,6 +18,12 @@ class Imap extends ImapConnect
 	private static $instance = null;
 	
 	/**
+	 * 
+	 * @var Config
+	 */
+	private $config = null;
+
+	/**
 	 * Ruta del servidor y buzon para el servidor 
 	 * la ruta debe ir en {} 
 	 * 
@@ -25,14 +31,17 @@ class Imap extends ImapConnect
 	 */
 	protected $authhost;
 
+
 	/**
 	 * 
 	 * @param Config $config
 	 */
-	public function __construct(Config $config)
+	public function __construct()
 	{
-		$this->authhost = "{" . $config->host .":". $config->postImap ."/imap/ssl}";
-		parent::__construct($this->authhost, $config->username, $config->password); 
+		$this->config = Config::getInstance(); //Configuracion predeterminada
+
+		$this->authhost = "{" . $this->config->host .":". $this->config->postImap ."/imap/ssl}";
+		parent::__construct($this->authhost, $this->config->username, $this->config->password); 
 	}
 
 	/**
@@ -42,15 +51,30 @@ class Imap extends ImapConnect
 	public static function getInstance()
 	{
 		if(self::$instance == null) {
-			self::$instance = new self(Config::getInstance());
+			self::$instance = new self();
 		}
 
 		return self::$instance;
 	}
 
+	/**
+	 * 
+	 * @param string $authHost 
+	 * @return void
+	 */
 	public function setAuthHost($authHost)
 	{
 		$this->authhost = $authhost;
+	}
+
+	/**
+	 * 
+	 * @param Config $config
+	 * @return void
+	 */
+	public function setConfig(Config $config)
+	{
+		$this->config = $config;
 	}
 
     /**
