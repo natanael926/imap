@@ -118,7 +118,8 @@ class Imap extends ImapConnect
 
         	foreach($header as $line) {
          		// separate name and value
-            	eregi("^([^:]*): (.*)", $line, $arg);
+         		$regex = "^([^:]*): (.*)";
+            	preg_match("%{$regex}%i", $line, $arg);
             	$head[$arg[1]] = $arg[2];
         	}
 		}
@@ -174,10 +175,13 @@ class Imap extends ImapConnect
 			array_push($mailes, $mail);
 		}
 
-		arsort($mailes);
 		return $mailes;
 	}
 
+	/**
+	 * 
+	 * @return int
+	 */
 	public function numMsg()
 	{
 		return imap_num_msg($this->connect);
@@ -205,4 +209,79 @@ class Imap extends ImapConnect
 		return imap_search($this->connect, $pattern, SE_UID);
 	}
 	
+
+	/**
+	 * Obtener tipo de contenido
+	 * 
+	 * @param 
+	 * @return string
+	 */
+	public function getMimeType($structure) 
+	{ 
+
+		$primaryMimeType = ["TEXT", "MULTIPART", "MESSAGE", "APPLICATION", "AUDIO", "IMAGE", "VIDEO", "OTHER"];
+
+    	if(is_object($structure)) { 
+        	return $primaryMimeType[(int) $structure->type] . '/' . $structure->subtype; 
+     	} 
+     	
+     	return "TEXT/PLAIN"; 
+    } 
+
+
+    /**
+     *
+     * Obtener contenido del mail
+     *   
+     * @param  int $msgNumber  
+     * @param  string  $mimeType   
+     * @param  boolean $structure  
+     * @param  boolean $partNumber 
+     * @return boolean             
+     */
+    public function getPart($msgNumber, $mimeType, $structure = false, $partNumber = false) 
+    {
+
+    	if (!$structure) { 
+        	$structure = imap_fetchstructure($this->connect, $msgNumber); 
+     	}
+
+    	if($structure) { 
+
+        	if($mimeType == $this->getMimeType($structure)) { 
+
+            	if($partNumber == false) { 
+                	$partNumber = "1"; 
+               	} 
+				
+				$text = imap_fetchbody($this->connect, $msgNumber, $partNumber); 
+              
+              	if($structure->encoding == 3) { 
+                   return imap_base64($text); 
+               	} else if ($structure->encoding == 4) { 
+                   return imap_qprint($text); 
+               	} else { 
+                   return $text; 
+            	} 
+        	}
+
+         	if ($structure->type == 1) { /* multipart */ 
+            	while (list($index, $subStructure) = each($structure->parts)) { 
+
+            		$prefix = 0;
+
+                	if ($partNumber) { 
+                    	$prefix = $partNumber . '.'; 
+                	} 
+
+                	$data = $this->getPart($msgNumber, $mimeType, $subStructure, $prefix . ($index + 1)); 
+                
+                	if ($data) { 
+                    	return $data; 
+                	} 
+            	} 
+        	} 
+    	} 
+    	return false; 
+	} 
 }

@@ -34,3 +34,7 @@ En el archivo .env craer los parametros
 * getUID($numMsg)
 * getUIDBySearch($patten = 'all')
 
+## Ejemplo obtener cuerpo.
+* Imap::getInstance()->getPart(17662, "TEXT/PLAIN");
+* Imap::getInstance()->getPart(17681, "TEXT/HTML"); 
+
