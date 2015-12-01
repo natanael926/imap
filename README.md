@@ -8,7 +8,7 @@ Disponer de un paquete que me facilite, la creación  de un cliente de correo, o
 
 
 # Requisitos
-php >= 5.3.0 y ext-imap
+php >= 5.4.0 y ext-imap
 
 # Instalación
 
