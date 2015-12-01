@@ -33,6 +33,11 @@ En el archivo .env craer los parametros
 * numMsg() cantidad de mensages
 * getUID($numMsg)
 * getUIDBySearch($patten = 'all')
+* getPart($msgNumber, $mimeType, $structure = false, $partNumber = false) 
+
+## Ejemplo obtener cuerpo.
+* Imap::getInstance()->getPart(17662, "TEXT/PLAIN");
+* Imap::getInstance()->getPart(17681, "TEXT/HTML"); 
 
 ## Ejemplo obtener cuerpo.
 * Imap::getInstance()->getPart(17662, "TEXT/PLAIN");
