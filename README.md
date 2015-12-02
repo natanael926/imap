@@ -38,15 +38,3 @@ En el archivo .env craer los parametros
 ## Ejemplo obtener cuerpo.
 * Imap::getInstance()->getPart(17662, "TEXT/PLAIN");
 * Imap::getInstance()->getPart(17681, "TEXT/HTML"); 
-<<<<<<< HEAD
-=======
-
-## Ejemplo obtener cuerpo.
-* Imap::getInstance()->getPart(17662, "TEXT/PLAIN");
-* Imap::getInstance()->getPart(17681, "TEXT/HTML"); 
->>>>>>> develop
-
-## Ejemplo obtener cuerpo.
-* Imap::getInstance()->getPart(17662, "TEXT/PLAIN");
-* Imap::getInstance()->getPart(17681, "TEXT/HTML"); 
-
