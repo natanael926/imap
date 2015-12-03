@@ -42,7 +42,6 @@ class Config
 	 */
 	public function __construct()
 	{
-
 		$this->host = env("HOST_IMAP");
 		$this->username = env("USER_EMAIL_IMAP");
 		$this->password = env("PASS_EMAIL_IMAP");

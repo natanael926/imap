@@ -2,6 +2,7 @@
 
 use NCrousset\Imap\Config as Config;
 use NCrousset\Imap\ImapConnect as ImapConnect;
+use NCrousset\Imap\SetMail as SetMail;
 
 /**
  *
@@ -10,6 +11,8 @@ use NCrousset\Imap\ImapConnect as ImapConnect;
  */
 class Imap extends ImapConnect
 {
+
+	use SetMail;
 
 	/**
 	 * 
@@ -36,11 +39,13 @@ class Imap extends ImapConnect
 	 * 
 	 * @param Config $config
 	 */
-	public function __construct()
+	public function __construct($validate = true)
 	{
 		$this->config = Config::getInstance(); //Configuracion predeterminada
 
-		$this->authhost = "{" . $this->config->host .":". $this->config->postImap ."/imap/ssl}";
+		$novalidateCert = ($validate) ? '' : 'novalidate-cert/'; 
+
+		$this->authhost = "{" . $this->config->host .":". $this->config->postImap ."/imap/ssl/" + $novalidateCert + "/}";
 		parent::__construct($this->authhost, $this->config->username, $this->config->password); 
 	}
 
